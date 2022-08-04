@@ -1,0 +1,113 @@
+<apex:page controller="DailyReportController" title="日次報告" tabStyle="DailyReport__tab">
+    <script src="{! $Resource.jquerymin }"/>
+    <script>
+        function selectText(element){
+        $(element).select();
+    }
+    
+    function resetInlineEdit(){
+        $(".inlineEditUndo").each(function(){
+            	$(this).click();
+            });
+    }
+    
+    function showEmailContents() {
+        function createElements(){
+            var div = $("<div></div>");
+            div.css("font-family", "Consolas, 'Courier New', Courier, Monaco, monospace");
+            div.css("font-size", "14px");
+            div.append("件名：");
+            var subject = $("<textarea></textarea>");
+            subject.css("width","100%");
+            subject.css("height","25px");
+            subject.attr("onfocus","opener.selectText(this);");
+            subject.html($("#emailSubject").val());
+            div.append(subject);
+            div.append("<br>");
+            div.append("<br>");
+            div.append("本文：");
+            var body = $("<textarea></textarea>");
+            body.css("width","100%");
+            body.css("height","80%");
+            body.attr("onfocus","opener.selectText(this);");
+            body.html($("#emailBody").val());
+            div.append(body);
+            return div;
+        }
+        var win = window.open('', 'dailyReportEmail', 'width=1000px,height=800px');
+        /*
+        $(win).blur(function() {
+            win.close();
+          });
+        */
+        win.document.body.innerHTML = createElements().prop("outerHTML");
+    }
+    </script>
+    
+    <apex:pageBlock mode="detail" title="日次報告" id="topblock">       
+        <apex:form id="mainform">     
+            <apex:pageMessages escape="false" id="msg"/>
+            <apex:outputLabel value="プロジェクト区分："/>
+            <apex:actionRegion >
+                <apex:selectList value="{!Category}" multiselect="false" size="1">
+                    <apex:selectOptions value="{!Categories}"/>
+                    <apex:actionSupport event="onchange"/>
+                    <!--<apex:actionSupport event="onchange" reRender="mainBlock, msg, saveButton, exportButton, cancelInlineEditButton"/>-->
+                </apex:selectList>            
+            </apex:actionRegion>
+            <br/>
+            <br/>
+        </apex:form>
+        <apex:form >    
+            
+            <apex:pageBlock mode="detail" id="mainBlock">
+                <apex:inlineEditSupport event="ondblclick" hideOnEdit="exportButton" showOnEdit="saveButton,cancelButton"/>
+                <apex:pageBlockButtons location="both">
+                    <apex:commandButton action="{!save}" id="saveButton" value="Save" disabled="{!NOT(ProjectExists)}"/>
+                    <apex:commandButton onclick="resetInlineEdit();" id="cancelButton" value="Cancel" disabled="{!NOT(ProjectExists)}" />
+                    <apex:commandButton onclick="showEmailContents(); return false;" id="exportButton" value="Export" disabled="{!NOT(ProjectExists)}" />
+                </apex:pageBlockButtons>
+                
+                <apex:outputPanel layout="block" id="projects">
+                <apex:repeat value="{!Projects}" var="project">
+                    <!--<apex:pageBlock title="{!project.name}">-->
+                    <apex:pageBlockSection columns="1" title="{!project.UserName__c}: {!project.name}">
+                        
+                        <apex:pageBlockTable value="{!project.AssignOnProject__r}" var="assign">                            
+                            <apex:column headerValue="担当者名">
+                                <apex:outputText value="{!assign.Member__r.Abbr__c}"/>
+                            </apex:column>
+                            <apex:column headerValue="報告日">
+                                <apex:outputField value="{!assign.DailyReportDate__c}" />
+                            </apex:column>
+                            <apex:column headerValue="進捗">
+                                <apex:outputField value="{!assign.Progress__c}" />
+                            </apex:column>
+                            <apex:column headerValue="作業実績">
+                                <apex:outputField value="{!assign.WorkDetail__c}" />
+                            </apex:column>                            
+                            <apex:column headerValue="入館証">
+                                <apex:outputField value="{!assign.AdmissionCard__c}" />
+                            </apex:column>
+                            <apex:column headerValue="前日残業実績（H)">
+                                <apex:outputField value="{!assign.PreviousOverTime__c}" />
+                            </apex:column>
+                            <apex:column headerValue="当日残業予定（H)">
+                                <apex:outputField value="{!assign.EstimatedOverTime__c}" />
+                            </apex:column>
+                            <apex:column headerValue="その他連絡事項">
+                                <apex:outputField value="{!assign.Remarks__c}" />
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    <!--</apex:pageBlock>-->
+                        </apex:pageBlockSection>
+                </apex:repeat>                                    
+                <apex:outputPanel id="emailContents">
+                    <input id="emailSubject" type="hidden" value="{!EmailSubject}"/>
+                    <input id="emailBody" type="hidden" value="{!EmailBody}"/>
+                </apex:outputPanel>           
+                </apex:outputPanel>
+            </apex:pageBlock>            
+        </apex:form>       
+    </apex:pageBlock>
+</apex:page>

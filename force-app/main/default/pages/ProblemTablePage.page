@@ -1,0 +1,246 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" controller="WeeklyProjectReportController">
+    <html>
+        <head>
+        </head>       
+        <body>
+            <div align="center" style="padding-left:10px;">
+                <table id="{!$Label.ProblemTableId}" border="0" cellpadding="0" cellspacing="0" width="1406">
+                    <tr height="5">
+                        <td width="30"></td>
+                        <td width="30"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="18"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                    </tr>
+                    <tr height="23">
+                        <td colspan="5" class="gray_header">プロジェクトＮｏ</td>
+                        <td colspan="8" class="left_border_cell">{!Project.ProjectNo__c}</td>
+                        <td colspan="4" class="gray_header">文書番号</td>
+                        <td colspan="10" class="left_border_cell">{!Project.ProblemTableDocumentNo__c}</td>
+                        <td colspan="3" class="gray_header">発行Ｎｏ</td>
+                        <td colspan="6" class="left_border_cell">{!Project.ProblemTableIssueNo__c}</td>
+                        <td colspan="37" ></td>
+                        <td></td>
+                    </tr>
+                    <tr height="16">
+                        <td colspan="73"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="16">
+                        <td colspan="73"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="16">
+                        <td class="gray_header_btm_no_border bold_font">区</td>
+                        <td class="gray_header_btm_no_border bold_font">区</td>
+                        <td colspan="2" class="gray_header_btm_no_border center_cell bold_font">Ｎｏ</td>
+                        <td colspan="7" class="gray_header center_cell bold_font">発生</td>
+                        <td colspan="19" rowspan="2" class="gray_header center_cell bold_font">問題・課題</td>
+                        <td colspan="14" class="gray_header_btm_no_border center_cell bold_font">（問題・課題）対応策</td>
+                        <td colspan="4" rowspan="2" class="gray_header center_cell bold_font">ステータス</td>
+                        <td colspan="7" class="gray_header center_cell bold_font">対応予定</td>
+                        <td colspan="18" class="blue_header center_cell left_border_double bold_font">対応結果</td>
+                        <td></td>
+                    </tr>
+                    <tr height="16">
+                        <td class="gray_header_top_no_border right_cell bold_font">1</td>
+                        <td class="gray_header_top_no_border right_cell bold_font">2</td>
+                        <td colspan="2" class="gray_header_top_no_border center_cell">　</td>
+                        <td colspan="4" class="gray_header center_cell bold_font">発生日</td>
+                        <td colspan="3" class="gray_header center_cell bold_font">指摘者</td>
+                        <td colspan="14" class="gray_header_top_no_border center_cell bold_font">（変更未対応の場合、その影響）</td>
+                        <td colspan="4" class="gray_header center_cell bold_font">期限日</td>
+                        <td colspan="3" class="gray_header center_cell bold_font">担当者</td>
+                        <td colspan="4" class="blue_header center_cell left_border_double bold_font">対応日</td>
+                        <td colspan="11" class="blue_header center_cell bold_font">（問題・課題）対応結果</td>
+                        <td colspan="3" class="blue_header center_cell bold_font">作業工数</td>
+                        <td></td>
+                    </tr>
+                    <apex:repeat value="{!Problems}" var="problem">
+                        <tr height="83">
+                            <td class="left_border_cell">{!problem.Category1__c}</td>
+                            <td class="left_border_cell">{!problem.Category2__c}</td>
+                            <td colspan="2" class="left_border_cell">{!problem.Name}</td>
+                            <td colspan="4" class="left_border_cell">{!problem.Rep_OccurredOn__c}</td>
+                            <td colspan="3" class="left_border_cell wrap_text">{!problem.Pointer__c}</td>
+                            <td colspan="19" class="left_border_cell text_cell">{!problem.Details__c}</td>
+                            <td colspan="14" class="left_border_cell text_cell">{!problem.Measures__c}</td>
+                            <td colspan="4" class="left_border_cell">{!problem.Status__c}</td>
+                            <td colspan="4" class="left_border_cell">{!problem.Rep_MeasureDeadline__c}</td>
+                            <td colspan="3" class="left_border_cell wrap_text">{!problem.MeasurePIC__c}</td>
+                            <td colspan="4" class="left_border_cell bottom_border_single">{!problem.Rep_MeasureTakenOn__c}</td>
+                            <td colspan="11" class="left_border_double text_cell">{!problem.MeasureResults__c}</td>
+                            <td colspan="3" class="left_border_cell">{!problem.MeasureManHour__c}</td>                            
+                            <td></td>
+                        </tr>
+                    </apex:repeat>
+                    <tr height="83">
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="19" class="left_border_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_double bottom_border_single"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="83">
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="19" class="left_border_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_double bottom_border_single"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="83">
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="19" class="left_border_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_double bottom_border_single"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="83">
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="19" class="left_border_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_double bottom_border_single"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="83">
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="19" class="left_border_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_double bottom_border_single"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td></td>
+                    </tr>
+                    <tr height="83">
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="19" class="left_border_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_double bottom_border_single"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </body>
+    </html>
+</apex:page>

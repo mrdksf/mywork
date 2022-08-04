@@ -1,0 +1,5 @@
+<apex:page Controller="DescribeController" cache="true" showHeader="false" sidebar="false" contentType="text/csv;charset=UTF-8#{!FileName}.csv">
+<apex:repeat value="{!CsvRecords}" var="record">
+    <apex:outputText value="{!record}" />
+</apex:repeat>
+</apex:page>

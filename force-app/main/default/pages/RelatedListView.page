@@ -1,0 +1,4 @@
+<apex:page standardController="Member__c">
+    <base target="_top" />
+    <apex:relatedList list="CombinedAttachments"></apex:relatedList>
+</apex:page>

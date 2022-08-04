@@ -1,0 +1,24 @@
+<apex:page standardController="DuplicateUser__c">
+<style>
+
+</style>
+<script>
+    let cnt = 0;
+    window.onload = function(){
+        const btn = document.getElementById("merge");
+        btn.addEventListener("click", (e) => {
+            document.getElementById("if").setAttribute("src","/merge/accmergewizard.jsp?goNext=+Next+&cid=0016F00003kyqvu&cid=0016F00003kyqvz");
+        })
+    }
+
+    function ifload(e){
+        console.log(e);
+        cnt++;
+        console.log(cnt);
+    }
+</script>
+<button id="merge">Merge</button>
+<div id="ifdiv">
+    <iframe id="if" src="" onload="ifload(this);"/>
+</div>
+</apex:page>

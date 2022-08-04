@@ -1,0 +1,449 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" controller="WeeklyProjectReportController">
+    <html>
+        <head>
+        </head>      
+        <body>
+            <div align="center" style="padding-left:10px;">
+                <table id="{!$Label.ProjectReportTableId}" border="0" cellpadding="0" cellspacing="0" width="763">
+                    <tbody>
+                        <tr height="10">
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="20"></td>
+                            <td width="60"></td>
+                        </tr>
+                        <tr height="20">
+                            <td colspan="3" class="evaluation_header">評価欄</td>
+                            <td colspan="36"></td>
+                            <td></td>
+                        </tr>
+                        <tr height="20">
+                            <td colspan="3" class="gray_header center_cell rect_border_single_thick">稼働</td>
+                            <td class="center_cell rect_border_single_thick workloadIndex"></td>
+                            <td colspan="3" class="gray_header center_cell rect_border_single_thick">進捗対応</td>
+                            <td class="rect_border_single_thick progressIndex"></td>
+                            <td colspan="3" class="gray_header center_cell rect_border_single_thick">問題度</td>
+                            <td class="rect_border_single_thick problemIndex"></td>
+                            <td colspan="3" class="gray_header center_cell rect_border_single_thick">総合評価</td>
+                            <td class="rect_border_single_thick overallIndex"></td>
+                            <td colspan="23"></td>
+                            <td></td>
+                        </tr>
+                        <tr height="12">
+                            <td colspan="39">&nbsp;</td>
+                            <td></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="7" class="gray_header left_border_single_thick top_border_single_thick">ﾄﾞｷｭﾒﾝﾄ番号/発行No</td>
+                            <td colspan="12" class="left_border_cell top_border_single_thick">{!Report.Name}</td>
+                            <td colspan="3" class="gray_header top_border_single_thick">ﾕｰｻﾞ略称</td>
+                            <td colspan="3" class="gray_header top_border_single_thick">報告日</td>
+                            <td colspan="4" class="left_border_cell top_border_single_thick">{!ReportDate}</td>
+                            <td colspan="3" class="gray_header top_border_single_thick">報告者</td>
+                            <td colspan="7" class="left_border_cell top_border_single_thick">{!Project.ReportSubmitter__r.Name}</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="7" class="gray_header left_border_single_thick">プロジェクトNo</td>
+                            <td colspan="12" class="left_border_cell">{!Project.ProjectNo__c}</td>
+                            <td colspan="3" class="left_border_cell">{!Project.UserName__c}</td>
+                            <td colspan="3" class="gray_header">進捗状況</td>
+                            <td colspan="4" class="left_border_cell">{!Report.Progress__c}</td>
+                            <td colspan="3" class="gray_header">遅れ対策</td>
+                            <td colspan="7" class="left_border_cell">{!Report.DelayMeasure__c}</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="7" class="gray_header left_border_single_thick">プロジェクト名</td>
+                            <td colspan="12" class="left_border_cell">{!Project.Name}</td>
+                            <td colspan="3" class="gray_header">契約形態</td>
+                            <td colspan="3" class="gray_header">進捗率</td>
+                            <td colspan="7" class="left_border_cell">今週：{!Report.ProgressRate__c}%</td>
+                            <td colspan="7" class="left_border_cell">全体：{!Project.ProgressRate__c}%</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="7" class="gray_header left_border_single_thick">プロジェクト実施期間</td>
+                            <td colspan="12" class="left_border_cell">{!ProjectStartsFrom}～{!ProjectEndsOn}</td>
+                            <td colspan="3" class="left_border_cell">{!Project.ContractType__c}</td>
+                            <td colspan="3" class="gray_header">問題度</td>
+                            <td colspan="14" class="left_border_cell">{!Report.ProblemRate__c}</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="20">
+                            <td colspan="7" class="gray_header red_text bold_font left_border_single_thick">必須添付資料</td>
+                            <td colspan="15" class="left_border_cell red_text">スケジュール（実績記入済）／EVM管理表</td>
+                            <td colspan="3" class="gray_header">作業形態</td>
+                            <td colspan="14" class="left_border_cell">{!Project.WorkType__c}</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="12">
+                            <td colspan="39" class="top_border_single_thick bottom_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="gray_header left_border_single_thick">プ　ロ　ジェ　ク　ト　報　告</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="16" class="gray_header bold_font left_border_single_thick">プロジェクト進捗状況、作業内容等の報告</td>
+                            <td colspan="10">＊次週の予定も記入</td>
+                            <td colspan="6" class="green_cell rect_border_single">現在のフェーズ</td>
+                            <td colspan="7" class="left_border_cell">{!Report.CurrentPhase__c}</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="26" class="left_border_single_thick"></td>
+                            <td colspan="6" class="green_cell rect_border_single">レビュー実施予実</td>
+                            <td colspan="7" class="left_border_cell">{!Report.ActualReviewCount__c}{!ReviewCountDelimitter}{!Report.ScheduledReviewCount__c}</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="26" class="left_border_single_thick"></td>
+                            <td colspan="6" class="green_cell rect_border_single">レビュー報告書数</td>
+                            <td colspan="7" class="left_border_cell">{!Report.ReviewReportCount__c}</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">（固有の顧客名、エンド名、システム名は、略号またはイニシャルで記入すること）</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="2" class="left_border_single_thick"></td>
+                            <td colspan="35" class="task_header">今週の作業内容</td>
+                            <td colspan="2"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="left_border_single_thick"></td>
+                            <td colspan="35" class="text_border_cell">{!Report.TaskOverviewThisWeek__c}</td>
+                            <td colspan="2"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                       <apex:repeat value="{!Tasks}" var="task">
+                            <tr height="19">
+                                <td colspan="2" class="left_border_single_thick"></td>
+                                <td colspan="35" class="member_task_header">{!task.MemberAbbr__c}</td>
+                                <td colspan="2"></td>
+                                <td class="left_border_single_thick"></td>
+                            </tr>                            
+                           <tr>
+                                <td colspan="2" class="left_border_single_thick"></td>
+                                <td colspan="35" class="text_border_cell">{!task.Achievement__c}</td>
+                                <td colspan="2"></td>
+                                <td class="left_border_single_thick"></td>
+                            </tr>
+                        </apex:repeat>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="2" class="left_border_single_thick"></td>
+                            <td colspan="35" class="task_header">来週の作業予定</td>
+                            <td colspan="2"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="left_border_single_thick"></td>
+                            <td colspan="35" class="text_border_cell">{!Report.TaskOverviewNextWeek__c}</td>
+                            <td colspan="2"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                       <apex:repeat value="{!Tasks}" var="task">
+                            <tr height="19">
+                                <td colspan="2" class="left_border_single_thick"></td>
+                                <td colspan="35" class="member_task_header">{!task.MemberAbbr__c}</td>
+                                <td colspan="2"></td>
+                                <td class="left_border_single_thick"></td>
+                            </tr>                            
+                           <tr>
+                                <td colspan="2" class="left_border_single_thick"></td>
+                                <td colspan="35" class="text_border_cell">{!task.TaskScheduledNextWeek__c}</td>
+                                <td colspan="2"></td>
+                                <td class="left_border_single_thick"></td>
+                            </tr>
+                        </apex:repeat>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="16" class="gray_header bold_font left_border_single_thick">遅れの原因と対策</td>
+                            <td colspan="23" class="top_border_single"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="left_border_single_thick"></td>
+                            <td colspan="36" class="text_cell">{!Report.DelayCause__c}</td>
+                            <td colspan="2"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="16" class="gray_header bold_font left_border_single_thick">コスト・品質・スケジュールに係る重要な問題と対策</td>
+                            <td colspan="23" class="top_border_single"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="left_border_single_thick"></td>
+                            <td colspan="36" class="text_cell">{!Report.QCDProblem__c}</td>
+                            <td colspan="2"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="16" class="gray_header bold_font left_border_single_thick">他連絡事項（顧客情報／他）</td>
+                            <td colspan="23" class="top_border_single"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="left_border_single_thick"></td>
+                            <td colspan="36" class="text_cell">{!Report.Information__c}</td>
+                            <td colspan="2"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="16" class="gray_header bold_font left_border_single_thick">高稼働(週50ｈ以上）の理由と対策</td>
+                            <td colspan="23" class="top_border_single"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" class="left_border_single_thick"></td>
+                            <td colspan="36" class="text_cell">{!Report.OverloadReason__c}</td>
+                            <td colspan="2"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="20">
+                            <td colspan="39" class="left_border_single_thick">&nbsp;</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="4" class="gray_header center_cell left_border_single_thick">日付</td>
+                            <td colspan="3" class="gray_header center_border_cell">{!DateList[0]}</td>
+                            <td colspan="3" class="gray_header center_border_cell">{!DateList[1]}</td>
+                            <td colspan="3" class="gray_header center_border_cell">{!DateList[2]}</td>
+                            <td colspan="3" class="gray_header center_border_cell">{!DateList[3]}</td>
+                            <td colspan="3" class="gray_header center_border_cell">{!DateList[4]}</td>
+                            <td colspan="3" class="gray_header center_border_cell">{!DateList[5]}</td>
+                            <td colspan="3" class="gray_header center_border_cell">{!DateList[6]}</td>
+                            <td colspan="3" class="gray_header center_border_cell left_border_double">{!DateList[7]}</td>
+                            <td colspan="3" class="gray_header center_border_cell">{!DateList[8]}</td>
+                            <td colspan="3" class="gray_header center_border_cell">{!DateList[9]}</td>
+                            <td colspan="5" rowspan="2" class="gray_header center_border_cell wrap_text">実働時間計<br/>(金～木までの集計)</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td colspan="4" class="gray_header center_cell left_border_single_thick">氏名＼曜日</td>
+                            <td colspan="3" class="gray_header center_border_cell">金</td>
+                            <td colspan="3" class="gray_header center_border_cell">土</td>
+                            <td colspan="3" class="gray_header center_border_cell">日</td>
+                            <td colspan="3" class="gray_header center_border_cell">月</td>
+                            <td colspan="3" class="gray_header center_border_cell">火</td>
+                            <td colspan="3" class="gray_header center_border_cell">水</td>
+                            <td colspan="3" class="gray_header center_border_cell">木</td>
+                            <td colspan="3" class="gray_header center_border_cell left_border_double">金(予定)</td>
+                            <td colspan="3" class="gray_header center_border_cell">土(予定)</td>
+                            <td colspan="3" class="gray_header center_border_cell">日(予定)</td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <apex:repeat value="{!Tasks}" var="task">
+                            <tr height="19">
+                                <td colspan="4" class="center_border_cell left_border_single_thick">{!task.Member__c}</td>
+                                <td colspan="3" class="center_border_cell yellow_cell">{!task.WorkingHourOnLastFri__c}</td>
+                                <td colspan="3" class="center_border_cell yellow_cell">{!task.WorkingHourOnLastSat__c}</td>
+                                <td colspan="3" class="center_border_cell yellow_cell">{!task.WorkingHourOnLastSun__c}</td>
+                                <td colspan="3" class="center_border_cell yellow_cell">{!task.WorkingHourOnMon__c}</td>
+                                <td colspan="3" class="center_border_cell yellow_cell">{!task.WorkingHourOnTue__c}</td>
+                                <td colspan="3" class="center_border_cell yellow_cell">{!task.WorkingHourOnWed__c}</td>
+                                <td colspan="3" class="center_border_cell yellow_cell">{!task.WorkingHourOnThu__c}</td>
+                                <td colspan="3" class="center_border_cell green_cell left_border_double">{!task.WorkingHourOnFri__c}</td>
+                                <td colspan="3" class="center_border_cell green_cell">{!task.WorkingHourOnSat__c}</td>
+                                <td colspan="3" class="center_border_cell green_cell">{!task.WorkingHourOnSun__c}</td>
+                                <td colspan="5" class="center_border_cell yellow_cell">{!task.TotalWorkingHour__c}</td>
+                                <td class="left_border_single_thick"></td>
+                            </tr>
+                        </apex:repeat>
+                        <tr height="19" emptycell="1">
+                            <td colspan="4" class="center_border_cell left_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell green_cell left_border_double"></td>
+                            <td colspan="3" class="center_border_cell green_cell"></td>
+                            <td colspan="3" class="center_border_cell green_cell"></td>
+                            <td colspan="5" class="center_border_cell yellow_cell"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19" emptycell="1">
+                            <td colspan="4" class="center_border_cell left_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell"></td>
+                            <td colspan="3" class="center_border_cell green_cell left_border_double"></td>
+                            <td colspan="3" class="center_border_cell green_cell"></td>
+                            <td colspan="3" class="center_border_cell green_cell"></td>
+                            <td colspan="5" class="center_border_cell yellow_cell"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19" emptycell="1">
+                            <td colspan="4" class="center_border_cell left_border_single_thick bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell yellow_cell bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell green_cell left_border_double bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell green_cell bottom_border_single_thick"></td>
+                            <td colspan="3" class="center_border_cell green_cell bottom_border_single_thick"></td>
+                            <td colspan="5" class="center_border_cell yellow_cell bottom_border_single_thick"></td>
+                            <td class="left_border_single_thick"></td>
+                        </tr>
+                        <tr height="19">
+                            <td>]end[</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr height="19">
+                            <td></td>
+                            <td colspan="37" class="bold_font">＊毎週（原則金曜日）にリスク管理表、スケジュール（実績反映済）、EVM管理表とともに、リーダーに提出</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </body></html>
+</apex:page>

@@ -1,0 +1,428 @@
+<apex:page controller="TestCardController" standardStylesheets="true">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $(".btna").on("click", (e) =>{
+                e.preventDefault();
+                const t = $("#stg").attr("target");
+                console.log("called")
+                if(t == "f3"){
+                    submitusrs();
+                }else{
+                    window[t]();
+                }
+
+                return false;
+            })
+
+            $("#save").on("click", (e) => {
+                f1();
+            })
+
+            $("#first").addClass("cond");
+
+        });
+
+        function end(r,e,d){
+            console.log(r)
+            console.log(e);
+            console.log(d);
+            $("#first").addClass("cond");
+                    }
+
+        function end2(){
+            return "true";
+        }
+    </script>
+
+<style>
+
+    .cp_breadcrumb {
+        overflow: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        display: flex;
+    }
+    .cp_breadcrumb li {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        /*width: calc(100%/5);*/
+    }
+
+    .cp_breadcrumb li:first-child {
+        background-color: rgba(105,52,73,0.8);
+        width: 10px;
+        border-right: 3px solid white;
+    }
+
+    .cp_breadcrumb a {
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        /*padding: 0 2em 0 3em;*/
+        padding: 0 4em 0 4em;
+        text-decoration: none;
+        color: #ffffff;
+        /*background-color: #693449;*/
+        display: flex;
+        cursor: pointer;
+        height: 50px;
+        align-items: center;
+        /* justify-content: center;*/
+    }
+
+    .cp_breadcrumb li:last-child {
+        padding-right: 1em;
+        border-radius: 0 5px 5px 0;
+        background: linear-gradient(90deg, rgba(105,52,73,1) 0%, rgba(152, 138, 144, 0.31) 50%);
+    }
+
+    .cp_breadcrumb a::after,
+    .cp_breadcrumb a::before {
+        position: absolute;
+        top: -4px;
+        right: -1.5em;
+        margin-top: -2px;
+        content: '';
+        border-top: 2.5em solid transparent;
+        border-bottom: 2.5em solid transparent;
+        border-left: 2em solid;
+        }
+
+    .cp_breadcrumb a::before {
+        z-index: 1;
+        right: -1.8em;
+        border-left-color: #ffffff;
+    }
+    .cp_breadcrumb a::after {
+        z-index: 2;
+        border-left-color:rgba(105,52,73, 0.8);
+        /* #693449;*/
+    }
+
+    .cp_breadcrumb li a.activce{
+        cursor: default;
+        pointer-events: none;
+        color: black;
+        background:        #b4c1ad;
+        border-radius: 0 5px 5px 0;
+    }
+    .cp_breadcrumb li a.activce::before {
+        z-index: 1;
+        right: -1.8em;
+        border-left-color: #ffffff;
+    }
+    .cp_breadcrumb li a.activce::after {
+        z-index: 2;
+        border-left-color: #b4c1ad;
+    }
+
+    .cp_breadcrumb li a:hover {
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+    .btna{
+        color: white;
+        margin: 1px;
+        padding: 2px 3px;
+        border: 1px solid #b5b5b5;
+        border-bottom-color: orange;;
+        padding: 8px 20px 8px 20px;
+        background : orange;
+        font-weight: bold;
+        font-size: 15px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+    .cont{
+        position: sticky;
+        top: 0;
+        left: 0;
+        background-color: rgba(105,52,73, 0.8);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+        height: 50px;
+    }
+    .bot{
+        position: sticky;
+        bottom:0;
+        left:0;
+        display: flex;
+        justify-content: space-between;
+        background-color: rgba(105,52,73, 0.8);
+        padding: 10px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    }
+
+    .frm{
+        position: relative;
+    }
+
+    .frm select{
+        padding: 1em;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+    }
+
+    .frm table{
+        border-spacing: 0;
+        border: 1px solid #eee;
+        border-collapse: collapse;
+    }
+    .frm th,
+    .frm td{
+        padding: 1em;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        border: 1px solid #eee;
+    }
+    .frm th{
+        background-color: rgba(65, 65, 169, 0.69);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: white;
+    }
+
+    .f1~ span .first,
+    .f2~span .second,
+    .f3~span .third,
+    .f4~span .fourth{
+        display: block;
+    }
+
+    .first,
+    .second,
+    .third,
+    .fourth{
+        display: none;
+    }
+    .abc{
+        position: absolute;
+        top:0;
+    }
+
+    .cont{
+        z-index: 9999;
+    }
+
+    .cp_breadcrumb li::before,
+    .cp_breadcrumb li::after{
+        position: absolute;
+        top: -4px;
+        right: -1.5em;
+        margin-top: -2px;
+        content: '';
+        border-top: 2.5em solid transparent;
+        border-bottom: 2.5em solid transparent;
+        border-left: 2em solid;
+    }
+    .cp_breadcrumb li::before {
+        z-index: 1;
+        right: -1.8em;
+        border-left-color: #ffffff;
+    }
+    .cp_breadcrumb li::after {
+        z-index: 2;
+        border-left-color:rgba(105,52,73, 0.8);
+    }
+
+    .dep{
+        display: none;
+    }
+    .cond .dep {
+        display: block;
+    }
+</style>
+<div class="frm" style="height:500px;">
+    <apex:form >
+    <div style="height:100%;">
+        <div class="cont">
+            <ul class="cp_breadcrumb">
+                <li></li>
+                <li><a href="">契約者</a></li>
+                <li><a class="activce" href="">ご意向</a></li>
+                <li><a href="">万一の保障</a></li>
+                <li><a href="">病気やけがの<br/>保障</a></li>
+                <li><a href="">老後の資金</a></li>
+                <li><a href="">老後の資金</a></li>
+                <li></li>
+            </ul>
+        </div>
+        <div style="height:20px"></div>
+        <apex:actionRegion >
+        <apex:outputPanel id="panel" styleClass="{!target}">
+            <div id="stg" target="{!target}"></div>
+
+
+            <apex:pageMessages id="sfe"/>
+
+
+        </apex:outputPanel>
+    </apex:actionRegion>
+
+    <apex:actionRegion >
+        <apex:outputPanel id="p1">
+        <apex:actionFunction action="{!save}" reRender="panel" name="f1" oncomplete="end(request,event,data);" immediate="false"></apex:actionFunction>
+        <div class="first" id="first">
+            <table>
+                <tr>
+                    <th>選択項目</th>
+                    <td><apex:inputField value="{!prod.Text__c}"/></td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>選択項目</th>
+                    <td><apex:inputField value="{!prod.num__c}"/></td>
+                    <td>県</td>
+                </tr>
+            </table>
+            <div class="dep">
+                <table>
+                    <tr>
+                        <th>dept test</th>
+                        <td><apex:inputField value="{!prod.Text__c}"/></td>
+                        <td>県</td>
+                    </tr>
+                    <tr>
+                        <th>dept test2</th>
+                        <td><apex:inputField value="{!prod.num__c}"/></td>
+                        <td>県</td>
+                    </tr>
+                </table>
+            </div>
+            <table>
+                <tr>
+                    <th>test</th>
+                    <td>abc</td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>test2</th>
+                    <td>abc</td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>test</th>
+                    <td>abc</td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>test2</th>
+                    <td>abc</td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>test</th>
+                    <td>abc</td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>test2</th>
+                    <td>abc</td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>test</th>
+                    <td>abc</td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>test2</th>
+                    <td>abc</td>
+                    <td>県</td>
+                </tr>
+            </table>
+        </div>
+    </apex:outputPanel>
+    </apex:actionRegion>
+
+    <apex:actionRegion >
+        <apex:outputPanel id="p2">
+        <apex:actionFunction action="{!next}" reRender="panel,p2" name="f2" oncomplete="end();"></apex:actionFunction>
+        <div class="second"  id="f2">
+            {!x}
+            <table>
+                <tr>
+                    <th>選択項目</th>
+                    <td><apex:inputField value="{!prod.Req1__c}" /></td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>選択項目</th>
+                    <td><apex:inputField value="{!prod.Text__c}"/></td>
+                    <td>県</td>
+                </tr>
+            </table>
+        </div>
+    </apex:outputPanel>
+    </apex:actionRegion>
+
+        <apex:actionRegion >
+            <apex:outputPanel id="p3">
+                <apex:actionFunction action="{!next}" reRender="panel,p3" name="f3" oncomplete="end();"></apex:actionFunction>
+        <div class="third">
+            {!x}
+            <table>
+                <tr>
+                    <th>選択項目</th>
+                    <td><apex:inputField value="{!ct.lastname}"/></td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>選択項目</th>
+                    <td><apex:inputField value="{!ct.firstname}"/></td>
+                    <td>県</td>
+                </tr>
+            </table>
+        </div>
+    </apex:outputPanel>
+        </apex:actionRegion>
+
+        <apex:actionRegion >
+            <apex:outputPanel id="p4">
+                <apex:actionFunction action="{!next}" reRender="panel,p4" name="f4" oncomplete="end();"></apex:actionFunction>
+        <div class="fourth">
+            4
+            <table>
+                <tr>
+                    <th>選択項目</th>
+                    <td><apex:inputField value="{!prod.Req2__c}" /></td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>選択項目</th>
+                    <td><apex:inputField value="{!prod.Req1__c}" required="false"/></td>
+                    <td>県</td>
+                </tr>
+                <tr>
+                    <th>選択項目</th>
+                    <td><apex:inputField value="{!prod.Text__c}"/></td>
+                    <td>県</td>
+                </tr>
+            </table>
+        </div>
+        </apex:outputPanel>
+        </apex:actionRegion>
+        <div class="bot">
+            <div class="leftbtn">
+                <apex:commandButton action="{!prev}" reRender="panel" immediate="true" value="前へ"></apex:commandButton>
+                <button class="btna">次へ</button>
+            </div>
+            <div class="rightbtn">
+                <button class="btna">キャンセル</button>
+                <button id="save" type="button">save</button>
+            </div>
+        </div>
+
+    </div>
+    </apex:form>
+</div>
+
+</apex:page>

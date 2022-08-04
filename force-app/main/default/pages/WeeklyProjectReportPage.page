@@ -1,0 +1,218 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" controller="WeeklyProjectReportController" action="{!prepare}">
+    <html>
+        <head>
+            <script src="{! $Resource.jquerymin }"/>
+            <script src="{! $Resource.xlexport }"/>
+            <script src="{! $Resource.xldownloader }"/>
+            <script>
+            	function exportExcel(){
+                    var projectId = "{!$Label.ProjectReportTableId}";
+                    var problemId = "{!$Label.ProblemTableId}";
+                    var riskId = "{!$Label.RiskTableId}";
+                    var projectSheetName = "{!$Label.ProjectReportSheetName}";
+                    var problemSheetName = "{!$Label.ProblemTableSheetName}";
+                    var riskSheetName = "{!$Label.RiskTableSheetName}";
+
+                    var link = createXmlSpreadSheet([projectId, problemId, riskId],
+                                  [projectSheetName,problemSheetName,riskSheetName],
+                                  "{!ReportName}",
+                                  'Excel');
+
+                    window.opener.postMessage(link, "{!$Label.SFDCDomain}");
+                }
+            </script>
+            <style>
+            <!--<link href="style.css" rel="stylesheet" type="text/css" media="all" />-->
+table{
+    table-layout:fixed;
+    border-collapse: collapse;
+    font-family:"ＭＳ Ｐゴシック", monospace;
+    font-size:10.0pt;
+    text-align:left;
+}
+
+.evaluation_header{
+    text-align:center;
+    border-top:2px double black;
+    border-left:2px double black;
+    border-right:2px double black;
+    background-color: light-gray;
+}
+
+.gray_header{
+    display:table-cell;
+    background-color: silver;
+    border: 1px solid black;
+}
+
+.gray_header_top_no_border{
+    display:table-cell;
+    background-color: silver;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.gray_header_btm_no_border{
+    display:table-cell;
+    background-color: silver;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.blue_header{
+    display:table-cell;
+    background-color: #CCFFFF;
+    border: 1px solid black;
+}
+
+.beige_header{
+    display:table-cell;
+    background-color: #FFCC99;
+    border: 1px solid black;
+}
+                
+.task_header{
+    display:table-cell;
+    background-color: #D6DCE4;
+    border: 1px solid black;
+}
+
+.member_task_header{
+    display:table-cell;
+    background-color: #FFF2CC;
+    border: 1px solid black;      
+}
+                
+.text_border_cell{
+	overflow-wrap : break-word;
+    white-space:pre-wrap;
+    border:1px solid black;
+    padding:10px;
+}
+
+.text_cell{
+	overflow-wrap : break-word;
+    white-space:pre-wrap;
+    padding:10px;
+}                
+
+.beige_cell{
+    background-color: #FFCC99;
+}
+
+.green_cell{
+    background-color: #CCFFCC;
+}
+
+.yellow_cell{
+    background-color: #FFFF99;
+}
+                
+.center_cell{
+    text-align:center;
+}
+
+.right_cell{
+    text-align: right;
+}
+
+.left_border_cell{
+    border: 1px solid black;
+}
+
+.center_border_cell{
+                display:table-cell;
+    border: 1px solid black;
+    text-align:center;
+}
+
+.top_border_single{
+    border-top:1px solid black;
+}
+
+.left_border_single{
+    border-left:1px solid black;
+}
+
+.bottom_border_single{
+    border-bottom:1px solid black;
+}
+
+.rect_border_single{
+    border: 1px solid black;
+}
+
+.top_border_single_thick{
+    border-top:2px solid black;
+}
+
+.bottom_border_single_thick{
+    border-bottom:2px solid black;
+}
+
+.left_border_single_thick{
+    border-left:2px solid black;
+}
+
+.right_border_single_thick{
+    border-right:2px solid black;
+}
+    
+.rect_border_single_thick{
+    border:2px solid black;
+}
+    
+.left_border_double{
+    border-left:2px double black;
+}
+
+.red_text{
+    color:red;
+}
+
+.bold_font{
+    font-weight: bold;
+}
+
+.wrap_text{
+    overflow-wrap: break-word;
+}
+                
+.workloadIndex{
+    background-color:{!WorkloadIndexColor};
+}
+
+.progressIndex{
+    background-color:{!ProgressIndexColor};
+}
+
+.problemIndex{
+    background-color:{!ProblemIndexColor};
+}
+
+.overallIndex{
+    background-color:{!OverallIndexColor};
+}           
+            </style>
+        </head>
+        <body>          
+            <div id="xbuttonArea" align="center" style="border-bottom:1px solid gray;width:100%;padding:5px;">
+                <button onclick="exportExcel();">Export to Excel</button>
+                <button onclick="window.close();">Close</button>
+            </div>
+            <div id="pageArea" align="center" style="padding-left: 10px;">               
+                <div id="projectArea" style="padding:10px 0; border-bottom:1px dashed black">
+					<apex:include pageName="{!$Label.ProjectReportPageName}"/>
+                </div>
+                <div id="problemArea" style="padding:10px 0; border-bottom:1px dashed black">
+                    <apex:include pageName="{!$Label.ProblemTablePageName}"/>
+                </div>
+                <div id="riskArea">
+                	<apex:include pageName="{!$Label.RiskTablePageName}"/>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>

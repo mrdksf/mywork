@@ -1,0 +1,269 @@
+<apex:page showHeader="false" sidebar="false" controller="BulkMHInputController" action="{!prepare}" docType="html-5.0">
+    <script src="{! $Resource.jquerymin }"/>
+    <script>
+        $(document).ready(function(){
+        var inputs = document.getElementsByTagName("input");
+        for (i = 0; i < inputs.length; i++) {
+            var input = $(inputs[i]);
+            if(input.attr("type") == "text"){
+                input.on("focus", function(){
+                    $(this).select();
+                });
+            }
+        }
+    });
+    
+    function showDate(element, daysToAdd){
+        if(!$(element).attr("title")){
+            var initialDate = new Date( $("#startDate").attr("date") );
+            initialDate.setDate(initialDate.getDate() + daysToAdd);
+            var month = initialDate.getMonth()+1;
+            var day = initialDate.getDate();
+            $(element).attr("title",month + "/" + day);
+        }
+    }
+    
+    function clearInput(){
+        var inputs = document.getElementsByTagName("input");
+        for (i = 0; i < inputs.length; i++) {
+            var input = $(inputs[i]);
+            if(input.hasClass("taskinput")){
+                input.val("");
+            }
+        }
+    }
+    
+    function populate(){
+        var inputs = document.getElementsByTagName("input");
+        for (i = 0; i < inputs.length; i++) {
+            var input = $(inputs[i]);
+            if(input.hasClass("workday")){
+                input.val("8.0");
+            }
+        }
+    }
+    
+    function closeWindow(){
+        window.close();
+    }
+    
+    </script>
+    <style>
+        body .bPageBlock .pbBody .red .pbSubheader{
+        background-color:#c00000;
+        }
+        body .bPageBlock .pbBody .grey .pbSubheader{
+        background-color:#c0c0c0;
+        }
+        body .bPageBlock .pbBody .grey .pbSubheader h3{
+        color:#000;
+        }
+    </style>
+    <!-- 情報 -->
+    <apex:pageBlock mode="maindetail">
+        <apex:outputPanel layout="block">
+            <apex:pageBlockSection title="情報" id="info">
+                <apex:outputLabel value="プロジェクト名："  >{!ProjectName}</apex:outputLabel>
+                <apex:outputLabel value="報告書名：" >{!ReportName}</apex:outputLabel>
+                <apex:outputLabel value="報告日：" >{!ReportDate}</apex:outputLabel>
+                <apex:outputLabel value="起算日：">{!DisplayStartDate}</apex:outputLabel>               
+            </apex:pageBlockSection>
+        </apex:outputPanel>
+    </apex:pageBlock>
+    <div id="startDate" style="display:none" date="{!StartDate}"></div>
+    <apex:pageMessages escape="false"/>
+    <!-- ページ -->    
+    <apex:form >
+        <apex:pageBlock >            
+            <apex:repeat value="{!Reports}" var="report">
+                <apex:repeat value="{!report.TaskOnReport__r}" var="task">
+                    <apex:outputPanel styleClass="red" layout="block">
+                        
+                        <apex:pageBlockSection title="{!task.Member__c}">
+                            <!-- 作業 -->
+                            <apex:pageBlockSection showHeader="false" columns="1">
+                                <apex:inputTextarea cols="50" rows="5" value="{!task.TaskScheduledThisWeek__c}"/>
+                                <apex:inputTextarea cols="50" rows="5" value="{!task.Achievement__c}"/>
+                                <apex:inputTextarea cols="50" rows="5" value="{!task.TaskScheduledNextWeek__c}"/>
+                                <apex:inputField value="{!task.EstimatedManHour__c}"/>
+                                <apex:inputField value="{!task.ProgressRate__c}"/>
+                            </apex:pageBlockSection>
+                            <br/>
+                            <!-- 実働 -->
+                            <apex:pageBlockSection showHeader="false" title="{!$ObjectType.Task__c.fields.ManHourOnLastFri__c.label}">
+                                <apex:outputPanel layout="block" style="font-weight:bold;">実働時間</apex:outputPanel>
+                                <br/>
+                                <apex:pageBlockTable value="{!task}" var="ta">
+                                    <apex:column >
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 0);">
+                                                {!$ObjectType.Task__c.fields.ManHourOnLastFri__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.ManHourOnLastFri__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 1);">
+                                                {!$ObjectType.Task__c.fields.ManHourOnLastSat__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.ManHourOnLastSat__c}" size="6" styleClass="taskinput holiday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 2);">
+                                                {!$ObjectType.Task__c.fields.ManHourOnLastSun__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.ManHourOnLastSun__c}" size="6" styleClass="taskinput holiday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 3);">
+                                                {!$ObjectType.Task__c.fields.ManHourOnMon__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.ManHourOnMon__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 4);">
+                                                {!$ObjectType.Task__c.fields.ManHourOnTue__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.ManHourOnTue__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 5);">
+                                                {!$ObjectType.Task__c.fields.ManHourOnWed__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.ManHourOnWed__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 6);">
+                                                {!$ObjectType.Task__c.fields.ManHourOnThu__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.ManHourOnThu__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                </apex:pageBlockTable>
+                                <br/>
+                            </apex:pageBlockSection>
+                            <br/>
+                            <!-- 工数 -->
+                            <apex:pageBlockSection showHeader="false">
+                                <apex:outputPanel layout="block" style="font-weight:bold;">作業工数</apex:outputPanel>
+                                <br/>
+                                <apex:pageBlockTable value="{!task}" var="ta">
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 0);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnLastFri__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnLastFri__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 1);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnLastSat__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnLastSat__c}" size="6" styleClass="taskinput holiday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 2);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnLastSun__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnLastSun__c}" size="6" styleClass="taskinput holiday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 3);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnMon__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnMon__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 4);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnTue__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnTue__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 5);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnWed__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnWed__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 6);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnThu__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnThu__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 7);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnFri__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnFri__c}" size="6" styleClass="taskinput workday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 8);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnSat__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnSat__c}" size="6" styleClass="taskinput holiday" />
+                                    </apex:column>
+                                    <apex:column >                    
+                                        <apex:facet name="header">
+                                            <apex:outputPanel layout="block" onmouseover="showDate(this, 9);">
+                                                {!$ObjectType.Task__c.fields.WorkingHourOnSun__c.label}
+                                            </apex:outputPanel>
+                                        </apex:facet>
+                                        <apex:inputText value="{!ta.WorkingHourOnSun__c}" size="6" styleClass="taskinput holiday" />
+                                    </apex:column>                    
+                                </apex:pageBlockTable>
+                            </apex:pageBlockSection>
+                        </apex:pageBlockSection>
+                    </apex:outputPanel>
+                </apex:repeat>
+            </apex:repeat>
+            <!-- ボタン -->
+            
+            <apex:pageBlockButtons location="both">
+                <apex:commandButton value="Save" action="{!save}" id="saveButton" disabled="{!NOT(HasTasks)}" />
+                <apex:commandButton value="Close" onclick="closeWindow(); return false;" id="bottomCloseButton" />
+                
+                <div style="float:right;">
+                    <apex:commandButton value="Populate" onclick="populate(); return false;" id="populateButton" disabled="{!NOT(HasTasks)}" />
+                    <apex:commandButton value="Clear" onclick="clearInput(); return false;" id="clearButton" disabled="{!NOT(HasTasks)}" />
+                    <apex:commandButton value="Prev" action="{!movePrevious}" id="prevButton"  disabled="{!NOT(HasPrevious)}" />
+                    <apex:commandButton value="Next" action="{!moveNext}" id="nextButton"  disabled="{!NOT(HasNext)}" />
+                    &nbsp;Page:
+                    <apex:input size="{!PageNoFieldSize}" id="targetPageNo" value="{!PageNo}" disabled="{!HasSingleRecord}" >
+                        <apex:actionSupport event="onchange" action="{!jumpTo}"/>
+                    </apex:input>
+                    /{!LastPageNo}
+                </div>
+            </apex:pageBlockButtons>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

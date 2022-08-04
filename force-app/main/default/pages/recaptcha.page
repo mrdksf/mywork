@@ -1,0 +1,24 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" cache="false" id="pg" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+        <head>
+            <script src="https://www.google.com/recaptcha/api.js?render=6LeDK0IbAAAAAM66NXeGXzNMYiJr5BkOBQj55w4c"></script>
+           <script>
+               //https://mrdk-sf-dev-ed--c.ap4.visual.force.com/apex/recaptcha
+               	window.addEventListener("message", receiveMessage, false);
+           	
+            	function receiveMessage(event) {
+              		if (event.origin !== "https://mura-developer-edition.ap4.force.com"){
+                		return;
+                    }
+                    grecaptcha.ready(function() {
+                        grecaptcha.execute('6LeDK0IbAAAAAM66NXeGXzNMYiJr5BkOBQj55w4c', {action: 'submit'}).then(function(token) {
+                            parent.postMessage(token, "https://mura-developer-edition.ap4.force.com");
+                        });
+                    });
+            	}
+          </script>
+        </head>
+        <body>
+        </body>
+    </html>
+</apex:page>

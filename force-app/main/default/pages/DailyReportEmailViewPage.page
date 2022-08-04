@@ -1,0 +1,24 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" controller="DailyReportController">
+    <style>
+        .emailContents{
+        	font-family: Consolas, "Courier New", Courier, Monaco, monospace;
+        	font-size: 14px;
+        	white-space: pre-wrap;
+        }
+    </style>
+    <div id="emailContentsArea" class="emailContents">
+    	<label for="emailSubject">件名：</label>
+    	<textarea id="emailSubject" style="width:100%;height:25px;">{!EmailSubject}</textarea>
+        <br/>
+        <br/>
+        <label for="emailBody"></label>
+        <textarea id="emailBody" style="width:100%;height:300px;">{!EmailBody}</textarea>
+        <br/>
+        <apex:form >
+            <apex:selectList value="{!Addressee}" multiselect="false" size="1">
+                <apex:selectOptions value="{!Addressees}"/>
+            </apex:selectList>
+        <apex:commandButton id="na" value="Send" action="{!sendReport}"/>
+            </apex:form>
+    </div>
+</apex:page>

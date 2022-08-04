@@ -1,0 +1,6 @@
+<apex:page controller="TestAttController">
+    <apex:form >
+        <apex:inputFile value="{!up}"></apex:inputFile><br/>
+    <apex:commandButton action="{!doup}" value="upload"/>
+        </apex:form>
+</apex:page>

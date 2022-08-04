@@ -1,0 +1,404 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" controller="WeeklyProjectReportController">
+    <html>
+        <head>
+        </head>        
+        <body>
+            <div align="center" style="padding-left:10px;">
+                <table id="{!$Label.RiskTableId}" border="0" cellpadding="0" cellspacing="0" width="1841">
+                    <tr height="10">
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="50"></td>
+                        <td width="60"></td>
+                        <td width="35"></td>
+                        <td width="35"></td>
+                        <td width="35"></td>
+                        <td width="35"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                        <td width="19"></td>
+                    </tr>
+                    <tr height="25">
+                        <td colspan="6" class="gray_header center_cell">プロジェクトＮｏ</td>
+                        <td colspan="8" class="left_border_cell">{!Project.ProjectNo__c}</td>
+                        <td colspan="5" class="gray_header center_cell">文書番号</td>
+                        <td colspan="11" class="left_border_cell">{!Project.ProblemTableDocumentNo__c}</td>
+                        <td colspan="3" class="gray_header center_cell">発行Ｎｏ</td>
+                        <td colspan="3" class="left_border_cell">{!Project.ProblemTableIssueNo__c}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr height="16">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr height="16">
+                        <td colspan="2" class="gray_header_btm_no_border bold_font center_cell">Ｎｏ</td>
+                        <td colspan="7" class="gray_header bold_font center_cell">特定</td>
+                        <td colspan="4" rowspan="2" class="gray_header bold_font center_cell">見直し日</td>
+                        <td colspan="4" rowspan="2" class="gray_header bold_font center_cell">終了日</td>
+                        <td colspan="4" rowspan="2" class="gray_header bold_font center_cell">顕在化日</td>
+                        <td colspan="3" rowspan="2" class="beige_header bold_font center_cell">状況</td>
+                        <td colspan="18" rowspan="2" class="gray_header bold_font center_cell">リスク内容・顕在化時期</td>
+                        <td rowspan="2" class="gray_header bold_font wrap_text center_cell">リスク<br/>区分</td>
+                        <td rowspan="2" class="beige_header bold_font center_cell">影響範囲</td>
+                        <td rowspan="2" class="gray_header bold_font center_cell">確率</td>
+                        <td rowspan="2" class="gray_header bold_font wrap_text center_cell">影響<br/>度</td>
+                        <td rowspan="2" class="gray_header bold_font wrap_text center_cell">リス<br/>ク値</td>
+                        <td rowspan="2" class="gray_header bold_font wrap_text center_cell">優先<br/>度</td>
+                        <td colspan="14" rowspan="2" class="gray_header bold_font center_cell">リスク軽減策・顕在化時対応策</td>
+                        <td colspan="7" class="gray_header bold_font center_cell">対応予定</td>
+                        <td colspan="18" class="blue_header bold_font left_border_double center_cell">対応結果</td>
+                        <td colspan="3" rowspan="2" class="gray_header bold_font wrap_text center_cell">顕在化<br/>フェーズ</td>
+                    </tr>
+                    <tr height="16">
+                        <td colspan="2" class="gray_header_top_no_border center_cell"></td>
+                        <td colspan="4" class="gray_header bold_font center_cell">特定日</td>
+                        <td colspan="3" class="gray_header bold_font center_cell">指摘者</td>
+                        <td colspan="4" class="gray_header bold_font center_cell">期限日</td>
+                        <td colspan="3" class="gray_header bold_font center_cell">担当者</td>
+                        <td colspan="4" class="blue_header bold_font left_border_double center_cell">対応日</td>
+                        <td colspan="11" class="blue_header bold_font center_cell">対応結果</td>
+                        <td colspan="3" class="blue_header bold_font center_cell">作業工数</td>
+                    </tr>
+                    <apex:repeat value="{!Risks}" var="risk">
+                        <tr height="83">
+                            <td colspan="2" class="left_border_cell">{!risk.Name}</td>
+                            <td colspan="4" class="left_border_cell">{!risk.Rep_IdentifiedOn__c}</td>
+                            <td colspan="3" class="left_border_cell wrap_text">{!risk.Pointer__c}</td>
+                            <td colspan="4" class="left_border_cell">{!risk.Rep_RevisedOn__c}</td>
+                            <td colspan="4" class="left_border_cell">{!risk.Rep_TerminatedOn__c}</td>
+                            <td colspan="4" class="left_border_cell">{!risk.Rep_EmergedOn__c}</td>
+                            <td colspan="3" class="left_border_cell beige_cell wrap_text">{!risk.Status__c}</td>
+                            <td colspan="18" class="left_border_cell">{!risk.Details__c}</td>
+                            <td class="left_border_cell wrap_text">{!risk.RiskType__c}</td>
+                            <td class="left_border_cell beige_cell">{!risk.ImpactExtent__c}</td>
+                            <td class="left_border_cell">{!risk.ProbabilityLevel__c}</td>
+                            <td class="left_border_cell">{!risk.ImpactLevel__c}</td>
+                            <td class="left_border_cell green_cell">{!risk.RiskValue__c}</td>
+                            <td class="left_border_cell yellow_cell">{!risk.Priority__c}</td>
+                            <td colspan="14" class="left_border_cell">{!risk.Measures__c}</td>
+                            <td colspan="4" class="left_border_cell">{!risk.Rep_MeasureDeadline__c}</td>
+                            <td colspan="3" class="left_border_cell wrap_text">{!risk.MeasurePIC__c}</td>
+                            <td colspan="4" class="left_border_cell">{!risk.Rep_MeasureTakenOn__c}</td>
+                            <td colspan="11" class="left_border_cell">{!risk.MeasureResults__c}</td>
+                            <td colspan="3" class="left_border_cell">{!risk.MeasureManHour__c}</td>
+                            <td colspan="3" class="left_border_cell wrap_text">{!risk.Phase__c}</td>
+                        </tr>
+                    </apex:repeat>
+                    <tr height="83">
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell beige_cell"></td>
+                        <td colspan="18" class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell beige_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell green_cell"></td>
+                        <td class="left_border_cell yellow_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                    </tr>
+                    <tr height="83">
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell beige_cell"></td>
+                        <td colspan="18" class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell beige_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell green_cell"></td>
+                        <td class="left_border_cell yellow_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                    </tr>
+                    <tr height="83">
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell beige_cell"></td>
+                        <td colspan="18" class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell beige_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell green_cell"></td>
+                        <td class="left_border_cell yellow_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                    </tr>
+                    <tr height="83">
+                        <td colspan="2" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell beige_cell"></td>
+                        <td colspan="18" class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell beige_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell"></td>
+                        <td class="left_border_cell green_cell"></td>
+                        <td class="left_border_cell yellow_cell"></td>
+                        <td colspan="14" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="4" class="left_border_cell"></td>
+                        <td colspan="11" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                        <td colspan="3" class="left_border_cell"></td>
+                    </tr>
+                </table>
+            </div>
+        </body>
+    </html>
+</apex:page>

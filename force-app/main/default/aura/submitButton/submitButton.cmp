@@ -1,0 +1,5 @@
+<aura:component extends="ui:button" implements="forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="data-sitekey" type="string" access="global" />
+    <aura:attribute name="data-callback" type="string" access="public" />
+    <aura:attribute name="data-action" type="string" access="public" />
+</aura:component>

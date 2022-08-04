@@ -1,0 +1,193 @@
+<apex:page title="オブジェクト定義取得" name="オブジェクト定義取得" Controller="DescribeController" showHeader="true" sidebar="false" standardStylesheets="false">
+<style>
+    *{
+        font-family: "Salesforce Sans",Arial,sans-serif !important;
+    }
+
+    .view{
+        margin-top:10px;
+    }
+
+    .tbl {
+        display: table;
+    }
+
+    .header{
+        position: sticky;
+        top: 0;
+        background-color: #FFFFFF;
+    }
+
+    .header-cell {
+        border-bottom: solid 1px #aaa;
+        border-right: solid 1px #aaa;
+        background-color: #92d5f0;
+        text-align: center;
+        color: #FFFFFF;
+        white-space: nowrap;
+        padding: 4px 6px;
+        position: sticky;
+        top: 50px;
+    }
+
+    .row {
+        display: table-row;
+    }
+
+    .row>div {
+        display: table-cell;
+    }
+
+    .links > div{
+        padding-right: 15px;
+    }
+
+    .sobject-label{
+        font-weight: bold;
+        display: block;
+        padding: 5px 2px;
+    }
+
+    .grid{
+        /*margin-top: 5px;*/
+        margin-bottom: 1em;
+        border-top: 1px solid #aaa;
+        border-left: 1px solid #aaa;
+        border-right: 1px solid #aaa;
+    }
+
+    .detail:hover{
+        background-color: #FFF5EE;
+    }
+
+    .value-cell{
+        white-space: pre-wrap;
+        border-bottom: solid 1px #aaa;
+        border-right: solid 1px #aaa;
+        padding: 4px 6px;
+    }
+
+    .sobject-type{
+        top: 5px;
+        position: relative;
+    }
+
+</style>
+
+<script>
+
+    document.addEventListener('keydown', onKeyDown);
+
+    function onKeyDown(e) {
+        if (e.ctrlKey && e.key === "s") {
+            const el = document.getElementsByClassName("exportExcel");
+            el[0].click();
+            return false;
+        }
+    }
+
+</script>
+
+<apex:form >
+
+    <apex:actionFunction action="{!refreshPage}" name="refreshPage" reRender="resultView"/>
+
+    <a name="result_table_top"></a>
+    <div class="tbl">
+        <div class="row">
+            <div>オブジェクト種別：　</div>
+            <div class="sobject-type">
+                <apex:selectRadio value="{!SelectedObjectType}" id="SelectedObjectType">
+                    <apex:selectOptions value="{!ObjectTypeList}"/>
+                    <apex:actionSupport event="onchange" reRender="tableList" />
+                </apex:selectRadio>
+            </div>
+        </div>
+
+        <div class="row">
+            <div>オブジェクト：　</div>
+            <div>
+                <apex:selectList styleClass="form-control" value="{!SelectedSObject}" size="1" multiselect="false" onchange="refreshPage();" id="tableList">
+                    <apex:selectOptions value="{!SObjectSelectOptionList}"/>
+                </apex:selectList>
+            </div>
+        </div>
+    </div>
+
+    <apex:outputPanel id="resultView">
+        <div class="view" style="display:{!IF(SelectedSObject <> '' , '', 'none')};">
+            <div class="header">
+                <div class="tbl">
+                    <div class="row links">
+                        <div>
+                            <a href="#result_table_top">ページ上部へ</a>
+                        </div>
+                        <div>
+                            <a href="#result_table_bottom">ページ下部へ</a>
+                        </div>
+                        <div>
+                            <apex:commandLink action="{!getDownloadPage}" target="_blank" value="CSV出力" style="display:{!IF(SelectedSObject <> '' , '', 'none')};"/>
+                        </div>
+                        <div>
+                            <apex:commandLink action="{!getExcelDownloadPage}" target="_blank" value="Excel出力" styleClass="exportExcel" style="display:{!IF(SelectedSObject <> '' , '', 'none')};"/>
+                        </div>
+                        <div>
+                            <apex:outputLink value="{!SetupLinkUrl}" target="_blank" style="display:{!IF(SelectedSObject <> '' , '', 'none')};">Setup</apex:outputLink>
+                        </div>
+                    </div>
+                </div>
+                <span class="sobject-label">
+                        <apex:outputText value="{! SelectedObjectLabel + ': ' + SelectedObjectName + '（' + SelectedObjectPrefix + '）'}"/>
+                </span>
+            </div>
+            <div class="tbl grid">
+                <div class="row">
+                    <apex:repeat value="{!ColumnHeader}" var="item">
+                        <div class="header-cell">{!item}</div>
+                    </apex:repeat>
+                </div>
+                <apex:repeat value="{!DescribeResult}" var="item">
+                    <div class="row detail">
+                        <div class="value-cell"><pre>{!item.No}</pre></div>
+                        <div class="value-cell"><pre>{!item.Label}</pre></div>
+                        <div class="value-cell"><pre>{!item.ApiName}</pre></div>
+                        <div class="value-cell"><pre>{!item.Type}</pre></div>
+                        <div class="value-cell"><pre>{!item.Length}</pre></div>
+                        <div class="value-cell"><pre>{!item.ReferenceTo}</pre></div>
+                        <div class="value-cell"><pre>{!item.PicklistLabels}</pre></div>
+                        <div class="value-cell"><pre>{!item.PicklistValues}</pre></div>
+                        <div class="value-cell"><pre>{!item.Formula}</pre></div>
+                        <div class="value-cell"><pre>{!item.SoapType}</pre></div>
+                        <div class="value-cell"><pre>{!item.IsAutoNumber}</pre></div>
+                        <div class="value-cell"><pre>{!item.IsCustom}</pre></div>
+                        <div class="value-cell"><pre>{!item.DefaultValue}</pre></div>
+                        <div class="value-cell"><pre>{!item.DefaultValueFormula}</pre></div>
+                        <div class="value-cell"><pre>{!item.IsCaseSensitive}</pre></div>
+                        <div class="value-cell"><pre>{!item.IsRestrictedPicklist}</pre></div>
+                        <div class="value-cell"><pre>{!item.IsDependentPicklist}</pre></div>
+                        <div class="value-cell"><pre>{!item.IsNillable}</pre></div>
+                        <div class="value-cell"><pre>{!item.IsUnique}</pre></div>
+                        <div class="value-cell"><pre>{!item.IsExternalId}</pre></div>
+                        <div class="value-cell"><pre>{!item.HelpText}</pre></div>
+                    </div>
+                </apex:repeat>
+            </div>
+            <a name="result_table_bottom"></a>
+            <br />
+            <div class="tbl">
+                <div class="row links">
+                    <div>
+                        <a href="#result_table_top">ページ上部へ</a>
+                    </div>
+                    <div>
+                        <apex:commandLink action="{!getDownloadPage}" target="_blank" value="CSV出力" style="display:{!IF(SelectedSObject <> '' , '', 'none')};"/>
+                    </div>
+                    <div>
+                        <apex:commandLink action="{!getExcelDownloadPage}" target="_blank" value="Excel出力" style="display:{!IF(SelectedSObject <> '' , '', 'none')};"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </apex:outputPanel>
+    </apex:form>
+</apex:page>

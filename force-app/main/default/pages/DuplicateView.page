@@ -1,0 +1,139 @@
+<apex:page standardController="DuplicateUser__c" extensions="DuplicateViewController">
+    <!--
+    <script　src="https://code.jquery.com/jquery-3.4.1.min.js"　integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="　crossorigin="anonymous"></script>
+    -->
+
+    <apex:pageMessages id="msg"/>
+    <div id="warn" style="display:none;">
+        <apex:pageMessage summary="法人と個人が混在している可能性があります。" severity="warning" strength="3" />
+    </div>
+
+    <apex:detail subject="{!dup.id}" relatedList="true" title="true" inlineEdit="true"/>
+
+    <apex:pageBlock tabStyle="Account" title="世帯" id="accountView">
+        <apex:pageBlockSection columns="1">
+            <apex:pageBlockTable value="{!AccountMap}" var="accountId" rules="cols" width="100%">
+                    <apex:column width="20%">
+                        <apex:facet name="header">世帯</apex:facet>
+                        <apex:outputLink value="/{!AccountMap[accountId].Id}">{!AccountMap[accountId].name}</apex:outputLink>
+                    </apex:column>
+                    <apex:column width="20%" value="{!AccountMap[accountId].Fax}"></apex:column>
+                    <apex:column width="20%" value="{!AccountMap[accountId].AccountNumber}"></apex:column>
+                    <apex:column width="20%" value="{!AccountMap[accountId].Phone}"></apex:column>
+                    <apex:column width="20%" value="{!AccountMap[accountId].Tradestyle}"></apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+    <apex:form >
+        <apex:pageBlock tabStyle="Contact" title="ユーザ" id="contactView">
+
+        <apex:pageBlockButtons location="top">
+            <input type="button" value="マージ" onclick="doMerge();" class="btn"/>
+            <apex:actionFunction action="{!mergeContacts}" reRender="msg,contactView,accountView,mmm" name="mergeContacts" oncomplete="openMerge();">
+                <apex:param name="selectedContacts" value=""/>
+            </apex:actionFunction>
+        </apex:pageBlockButtons>
+
+        <apex:outputPanel style="display:none;" id="mmm">
+            <input type="hidden" value="{!MergePageUrl}" id="mergeUrl"/>
+        </apex:outputPanel>
+
+        <apex:pageBlockSection columns="1">
+
+            <apex:pageBlockTable value="{!ContactMap}" var="contactId" rules="cols" width="100%">
+
+                <apex:column width="5%">
+                    <apex:facet name="header">
+                        <input type="checkbox" id="headerCheckbox" onchange="toggleChecked();"/>
+                    </apex:facet>
+                    <input type="checkbox" id="{!ContactMap[contactId].Id}" class="contactCheckbox" onchange="toggleHeader();"/>
+                </apex:column>
+                <apex:column width="20%">
+                    <apex:facet name="header">ユーザ</apex:facet>
+                    <apex:outputLink value="/{!ContactMap[contactId].Id}" styleClass="contactName">{!ContactMap[contactId].Name}</apex:outputLink>
+                </apex:column>
+                <apex:column width="20%">
+                    <apex:facet name="header">世帯</apex:facet>
+                    <apex:outputLink value="/{!ContactMap[contactId].AccountId}" styleClass="accountName">{!ContactMap[contactId].Account.Name}</apex:outputLink>
+                </apex:column>
+                <apex:column width="20%" value="{!ContactMap[contactId].MailingPostalCode}"></apex:column>
+                <apex:column width="20%" value="{!ContactMap[contactId].MailingState}"></apex:column>
+                <apex:column width="20%" value="{!ContactMap[contactId].MailingCity}"></apex:column>
+                <apex:column width="20%" value="{!ContactMap[contactId].MailingStreet}"></apex:column>
+
+            </apex:pageBlockTable>
+
+        </apex:pageBlockSection>
+
+    </apex:pageBlock>
+    </apex:form>
+
+    <script>
+        window.sfdcPage.appendToOnloadQueue(function() {
+            const acnames = Array.from(document.getElementsByClassName("accountName"));
+            const accomp = acnames.filter(el => el.innerHTML.includes("会社")).length;
+            const acind = acnames.length;
+            if(accomp > 0 && accomp != acind){
+                document.getElementById("warn").style.display = "block";
+                return;
+            }
+            const connames = Array.from(document.getElementsByClassName("contactName"));
+            const concomp = connames.filter(el => el.innerHTML.includes("会社")).length;
+            const conind = connames.length;
+            if(concomp > 0 && concomp != conind){
+                document.getElementById("warn").style.display = "block";
+            }
+
+        });
+
+        function doMerge(){
+            const selectedIds = Array.from(document.getElementsByClassName("contactCheckbox")).filter(el => el.checked).map(el => el.id);
+
+            if(selectedIds.length < 2){
+                alert("Select more than one");
+                return;
+            }
+
+            if(selectedIds.length > 3){
+                alert("No more than 3");
+                return;
+            }
+
+            if(confirm("一度マージすると元に戻せません。マージしていいですか?")){
+                mergeContacts(selectedIds.join(","));
+            }
+        }
+
+        function openMerge(){
+            const url = document.getElementById("mergeUrl").value;
+            const win = window.open(url);
+/*
+            const timer = setInterval(function() {
+                if(win.closed) {
+                    clearInterval(timer);
+                    location.reload();
+                }
+            }, 1000);
+*/
+        }
+
+        function toggleChecked(){
+            const header = document.getElementById("headerCheckbox");
+            if(header.checked){
+                Array.from(document.getElementsByClassName("contactCheckbox")).forEach(el => el.checked = true);
+            }else{
+                Array.from(document.getElementsByClassName("contactCheckbox")).forEach(el => el.checked = false);
+            }
+        }
+
+        function toggleHeader(){
+            const header = document.getElementById("headerCheckbox");
+            if(header.checked){
+                header.checked = false;
+            }
+        }
+
+    </script>
+
+</apex:page>

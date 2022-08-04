@@ -1,0 +1,20 @@
+<aura:component controller="LDailyReportController">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="projects" type="Project__c[]"/>
+    <aura:attribute name="columns" type="Array"/>
+    <lightning:accordion aura:id="accordion" activeSectionName="B">
+        <aura:iteration items="{!v.projects}" var="project">
+                <lightning:accordionSection name="{!project.Name}" label="{!project.Name}">
+                    <aura:iteration items="{!project.AssignOnProject__r}" var="assign" aura:id="button1">
+                        <aura:set attribute="body">
+                            <lightning:datatable
+                                                 columns="{!v.columns}"
+                                                 data="{! c.getAssign }"
+                                                 keyField="id"
+                                                 />
+                        </aura:set>
+                    </aura:iteration>
+                </lightning:accordionSection>
+        </aura:iteration>
+    </lightning:accordion>
+</aura:component>
